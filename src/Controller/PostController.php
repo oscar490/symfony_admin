@@ -14,18 +14,28 @@ use Symfony\Component\VarDumper\Cloner\Data;
 
 class PostController extends AbstractController
 {
+
     /**
-     * @Route("/post/create", name="post")
+     * @Route("/post/index", name="posts")
+     */
+    public function index() {
+        return $this->render('post/index.html.twig', [
+
+        ]);
+    }
+
+    /**
+     * @Route("/post/create", name="post-create")
      */
     public function create(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $post = new Posts();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $em = $this->getDoctrine()->getManager();
             $now = new \DateTime();
             $post->setActive(1);
@@ -37,9 +47,8 @@ class PostController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('post');
-        } else {
-            //var_dump('no valid'); die();
         }
+
         return $this->render('post/create.html.twig', [
             'controller_name' => 'PostController',
             'formulario' => $form->createView()

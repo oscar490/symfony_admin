@@ -3,18 +3,58 @@
 {% block title %}Hello PostController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class='container mt-4'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Noticias</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/synfony/src/Controller/PostController.php'|file_link(0) }}">src/Controller/PostController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/synfony/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
-    </ul>
+    <div class='row mt-2'>
+        <div class='col-md-12'>
+            <h1>
+                Noticias
+                <div class='float-right'>
+                    <a href='{{path('post-create')}}' class='btn btn-success'>Crear</a>
+                </div>
+            </h1>
+        </div>
+    </div>
+
+    <div class='row mt-4'>
+        <div class='col-md-12'>
+
+            <table class="table table-striped datatable">
+                <thead>
+                    <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Activo</th>
+                        <th scope="col">Creación</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    
 </div>
+
+{% block js %}
+    <script>
+        $(document).ready( function () {
+            $('.datatable').DataTable();
+        });
+    </script>
+{% endblock %}
+
 {% endblock %}
